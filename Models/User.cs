@@ -1,27 +1,30 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LoginReg.Models
 {
     public class User
     {
-        [Required]
-        [MinLength(3)]
-        public string FirstName { get; set; }
-        [Required]
-        [MinLength(3)]
-        public string LastName { get; set; }
-        [Required]
-        [MinLength(3)]
-        [DataType(DataType.EmailAddress)]
-        public string Email { get; set; }
-        [Required]
-        [MinLength(3)]
-        [DataType(DataType.Password)]
-        public string Password { get; set; }
-        [Required]
-        [MinLength(3)]
-        [DataType(DataType.Password)]
-        public string PasswordConfirm { get; set; }
+    [Key]
+    public int UserId {get;set;}
+    [Required]
+    public string FirstName {get;set;}
+    [Required]
+    public string LastName {get;set;}
+    [EmailAddress]
+    [Required]
+    public string Email {get;set;}
+    [DataType(DataType.Password)]
+    [Required]
+    [MinLength(8, ErrorMessage="Password must be 8 characters or longer!")]
+    public string Password {get;set;}
+    public DateTime CreatedAt {get;set;} = DateTime.Now;
+    public DateTime UpdatedAt {get;set;} = DateTime.Now;
+    [NotMapped]
+    [Compare("Password")]
+    [DataType(DataType.Password)]
+    public string Confirm {get;set;}
+
     }
 }

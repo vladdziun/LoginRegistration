@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+using LoginReg.Models;
 
 namespace LoginReg
 {
@@ -21,6 +23,7 @@ namespace LoginReg
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<LoginRegContext>(options =>  options.UseMySql(Configuration["DBInfo:ConnectionString"]));
             services.AddSession();            
             services.AddMvc();
         }
@@ -35,6 +38,7 @@ namespace LoginReg
             
 
             app.UseStaticFiles();
+            app.UseSession();  
             app.UseMvc();
         }
     }
