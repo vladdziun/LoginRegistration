@@ -3,14 +3,16 @@ using System;
 using LoginReg.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LoginReg.Migrations
 {
     [DbContext(typeof(LoginRegContext))]
-    partial class LoginRegContextModelSnapshot : ModelSnapshot
+    [Migration("20190411213939_ThirdMigration")]
+    partial class ThirdMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

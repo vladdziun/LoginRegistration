@@ -1,2 +1,19 @@
-<h1>You have successfully loged in</h1>
+@using System.Collections.Generic
+@using LoginReg.Models
+@model UserTransaction
+
+<h1>Welcome @Model.user.FirstName</h1>
+<p>Current Balance: @Model.user.Balance</p>
 <a href ="/logout">Logout</a>
+@{
+    if( @Model.user.UserTransactions!= null)
+    {
+           foreach(var t in @Model.user.UserTransactions)
+   {
+       <p>@t.Amount</p>
+   } 
+    }
+
+}
+
+<partial model="@Model.transaction" name="TransactionsPartial" />

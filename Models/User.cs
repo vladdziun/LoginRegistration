@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,6 +13,7 @@ namespace LoginReg.Models
     public string FirstName {get;set;}
     [Required]
     public string LastName {get;set;}
+    public int Balance {get; set; } = 0;
     [EmailAddress]
     [Required]
     public string Email {get;set;}
@@ -21,10 +23,13 @@ namespace LoginReg.Models
     public string Password {get;set;}
     public DateTime CreatedAt {get;set;} = DateTime.Now;
     public DateTime UpdatedAt {get;set;} = DateTime.Now;
+    public List<Transaction> UserTransactions {get; set; }
     [NotMapped]
     [Compare("Password")]
     [DataType(DataType.Password)]
     public string Confirm {get;set;}
+
+ 
 
     }
 }

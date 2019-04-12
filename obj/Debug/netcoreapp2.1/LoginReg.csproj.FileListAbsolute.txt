@@ -26,3 +26,4 @@ D:\CodingDojo\csharp\LoginReg\bin\Debug\netcoreapp2.1\LoginReg.Views.pdb
 D:\CodingDojo\csharp\LoginReg\obj\Debug\netcoreapp2.1\LoginReg.Views.pdb
 D:\CodingDojo\csharp\LoginReg\obj\Debug\netcoreapp2.1\LoginReg.csproj.CopyComplete
 D:\CodingDojo\csharp\LoginReg\obj\Debug\netcoreapp2.1\Razor\Views\Home\LoginUserPartial.g.cshtml.cs
+D:\CodingDojo\csharp\LoginReg\obj\Debug\netcoreapp2.1\Razor\Views\Home\TransactionsPartial.g.cshtml.cs

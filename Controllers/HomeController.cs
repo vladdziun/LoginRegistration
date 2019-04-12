@@ -40,7 +40,6 @@ namespace LoginReg.Controllers
                     return View("Index");
                 }
 
-
                 PasswordHasher<User> Hasher = new PasswordHasher<User>();
                 newUser.Password = Hasher.HashPassword(newUser, newUser.Password);
                 dbContext.Add(newUser);
@@ -99,8 +98,41 @@ namespace LoginReg.Controllers
         {
             if (HttpContext.Session.GetInt32("UserId") == null)
                 return RedirectToAction("Index");
-            return View("Success");
+
+            int? userId = HttpContext.Session.GetInt32("UserId");
+            User oneUser = dbContext.Users.FirstOrDefault(user =>
+            user.UserId == userId);
+            UserTransaction newUserTrans = new UserTransaction();
+            newUserTrans.user = oneUser;
+
+            List<Transaction> TransactionsWithUsers = dbContext.Transactions
+                .Include(transaction => transaction.Creator)
+                .ToList();
+
+            return View("Success", newUserTrans);
         }
+
+        [Route("/transaction")]
+        [HttpPost]
+        public IActionResult MakeTransaction(Transaction newTransaction)
+        {
+            if (ModelState.IsValid)
+            {
+            User oneUser = dbContext.Users.FirstOrDefault(user =>
+            user.UserId == (int)HttpContext.Session.GetInt32("UserId"));
+            oneUser.Balance +=newTransaction.Amount;
+                newTransaction.UserId = (int)HttpContext.Session.GetInt32("UserId");
+                dbContext.Add(newTransaction);
+                dbContext.SaveChanges();
+                return RedirectToAction("Success");
+            }
+            else
+            {
+                return View("Success");
+            }
+
+        }
+
         [Route("logout")]
         [HttpGet]
         public IActionResult Logout()

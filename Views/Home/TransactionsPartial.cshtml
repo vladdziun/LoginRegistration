@@ -1,0 +1,9 @@
+@using LoginReg.Models
+@model Transaction
+
+<form asp-action="MakeTransaction" asp-controller="Home" method="post">
+        <span asp-validation-for="Amount"></span><br>
+        <label asp-for="Amount"></label><br>
+        <input asp-for="Amount"><br>
+<button>Submit</button>
+</form>
