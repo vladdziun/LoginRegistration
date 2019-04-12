@@ -1,10 +1,10 @@
 @model LoginUser
 <form asp-action="Login" asp-controller="Home" method="post">
-        <span asp-validation-for="Email"></span><br>
-        <label asp-for="Email"></label><br>
-        <input asp-for="Email"><br>
-        <span asp-validation-for="Password"></span><br>
-        <label asp-for="Password"></label><br>
-        <input asp-for="Password"><br>
+        <span asp-validation-for="LoginEmail"></span><br>
+        <label asp-for="LoginEmail"></label><br>
+        <input asp-for="LoginEmail"><br>
+        <span asp-validation-for="LoginPassword"></span><br>
+        <label asp-for="LoginPassword"></label><br>
+        <input asp-for="LoginPassword"><br>
 <button>LogIn</button>
 </form>

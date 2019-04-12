@@ -59,12 +59,12 @@ namespace LoginReg.Controllers
             if (ModelState.IsValid)
             {
                 // If inital ModelState is valid, query for a user with provided email
-                var userInDb = dbContext.Users.FirstOrDefault(u => u.Email == userSubmission.Email);
+                var userInDb = dbContext.Users.FirstOrDefault(u => u.Email == userSubmission.LoginEmail);
                 // If no user exists with provided email
                 if (userInDb == null)
                 {
                     // Add an error to ModelState and return to View!
-                    ModelState.AddModelError("Email", "Invalid Email/Password");
+                    ModelState.AddModelError("LoginEmail", "Invalid Email/Password");
                     return View("Index");
                 }
 
@@ -72,7 +72,7 @@ namespace LoginReg.Controllers
                 var hasher = new PasswordHasher<LoginUser>();
 
                 // varify provided password against hash stored in db
-                var result = hasher.VerifyHashedPassword(userSubmission, userInDb.Password, userSubmission.Password);
+                var result = hasher.VerifyHashedPassword(userSubmission, userInDb.Password, userSubmission.LoginPassword);
 
                 // result can be compared to 0 for failure
                 if (result == 0)
@@ -107,6 +107,7 @@ namespace LoginReg.Controllers
 
             List<Transaction> TransactionsWithUsers = dbContext.Transactions
                 .Include(transaction => transaction.Creator)
+                .OrderByDescending(t=>t.CreatedAt)
                 .ToList();
 
             return View("Success", newUserTrans);
@@ -120,6 +121,11 @@ namespace LoginReg.Controllers
             {
             User oneUser = dbContext.Users.FirstOrDefault(user =>
             user.UserId == (int)HttpContext.Session.GetInt32("UserId"));
+            if(oneUser.Balance - newTransaction.Amount < 0 || newTransaction.Amount == null)
+            {
+                Console.WriteLine("LEss zero");
+                return RedirectToAction("Success");
+            }
             oneUser.Balance +=newTransaction.Amount;
                 newTransaction.UserId = (int)HttpContext.Session.GetInt32("UserId");
                 dbContext.Add(newTransaction);
@@ -128,9 +134,8 @@ namespace LoginReg.Controllers
             }
             else
             {
-                return View("Success");
+                return RedirectToAction("Success");
             }
-
         }
 
         [Route("logout")]

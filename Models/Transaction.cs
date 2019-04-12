@@ -8,7 +8,9 @@ namespace LoginReg.Models
     {
         [Key]
         public int TransactionId { get; set; }
+        
         [Required]
+        [Range(1,10000)]
         public int Amount { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.Now;
 

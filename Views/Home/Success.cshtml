@@ -8,10 +8,10 @@
 @{
     if( @Model.user.UserTransactions!= null)
     {
-           foreach(var t in @Model.user.UserTransactions)
-   {
-       <p>@t.Amount</p>
-   } 
+        foreach(var t in @Model.user.UserTransactions)
+        {
+            <p>Amount: @t.Amount USD | Date: @t.CreatedAt</p>
+        } 
     }
 
 }
